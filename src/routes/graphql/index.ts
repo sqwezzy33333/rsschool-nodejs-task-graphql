@@ -1,7 +1,11 @@
 import {FastifyPluginAsyncTypebox} from '@fastify/type-provider-typebox';
 import {createGqlResponseSchema, gqlResponseSchema} from './schemas.js';
 import {graphql, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLSchema} from 'graphql';
-import {MemberType, MemberTypeId, PostType, ProfileType, UserType, UUIDType} from "./types/index.js";
+import {MemberType, MemberTypeId} from "./types/member-types.js";
+import {PostType} from "./types/posts.js";
+import {UserType} from "./types/user.js";
+import {ProfileType} from "./types/profile.js";
+import {UUIDType} from "./types/uuid.js";
 
 const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
     const {prisma} = fastify;
@@ -62,7 +66,9 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
                                     type: new GraphQLNonNull(UUIDType)
                                 }
                             },
-                            resolve: (_source, {id}: { id: string }) => prisma.user.findUnique({where: {id}})
+                            resolve: (_source, {id}: { id: string }, _context) => prisma.user.findUnique({
+                                where: {id},
+                            })
                         }
                     }
                 }
@@ -85,7 +91,10 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
                 {
                     schema,
                     source: query,
-                    variableValues: variables
+                    variableValues: variables,
+                    contextValue: {
+                        prisma,
+                    }
                 }
             );
         },
