@@ -1,10 +1,9 @@
 import { User } from "@prisma/client";
 import { GraphQLObjectType, GraphQLResolveInfo } from "graphql";
-import {userObjectType} from "./userObjectType.js";
-import {userObjectTypeList} from "./userObjectTypeList.js";
 import { nonNullUUIDType } from "../../types/nonNullTypes.js";
 import { ResolveTree, parseResolveInfo, simplifyParsedResolveInfoFragmentWithType } from "graphql-parse-resolve-info";
 import Context from "../../types/context.js";
+import {userObjectType, userObjectTypeList} from "./user-object-type.js";
 
 export const userQuery = {
   user: {

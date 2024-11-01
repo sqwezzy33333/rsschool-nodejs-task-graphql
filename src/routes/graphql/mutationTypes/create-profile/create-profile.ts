@@ -1,7 +1,7 @@
 import { GraphQLObjectType } from 'graphql';
 import Context from "../../types/context.js";
-import {profileObjectType} from '../../queryTypes/profileQuery/profileObjectType.js';
 import { nonNullCreateProfileObjectType } from '../../types/nonNullTypes.js';
+import {profileObjectType} from "../../queryTypes/profile-query/profile-object-type.js";
 
 interface ICreateProfile {
   dto: {

@@ -1,7 +1,7 @@
 import { GraphQLObjectType } from "graphql";
-import {postObjectType} from "../../queryTypes/postQuery/postObjectType.js";
 import Context from "../../types/context.js";
 import { nonNullCreatePostObjectType } from "../../types/nonNullTypes.js";
+import {postObjectType} from "../../queryTypes/post-query/post-object-type.js";
 
 interface ICreatePost {
   dto: {

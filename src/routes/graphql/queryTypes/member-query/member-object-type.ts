@@ -1,8 +1,9 @@
 import { GraphQLObjectType, GraphQLFloat, GraphQLInt, GraphQLEnumType } from "graphql";
 import { MemberTypeId } from "../../../member-types/schemas.js";
-import {profileObjectTypeList} from "../profileQuery/profileObjectTypeList.js";
-import IContext from "../../types/IContext.js";
+
 import { MemberType } from "@prisma/client";
+import Context from "../../types/context.js";
+import {profileObjectTypeList} from "../profile-query/profile-object-type.js";
 
 export const memberEnumType = new GraphQLEnumType({
   name: 'MemberTypeId',
@@ -38,8 +39,8 @@ export const memberObjectType = new GraphQLObjectType({
     profiles: {
       type: profileObjectTypeList,
       description: 'The profiles',
-      resolve: async (source: MemberType, _args, context: IContext) => {
-        return await context.prisma.profile.findMany({
+      resolve: async (source: MemberType, _args, context: Context) => {
+        return context.prisma.profile.findMany({
           where: {
             memberTypeId: source.id,
           }

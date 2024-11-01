@@ -1,7 +1,7 @@
 import { GraphQLObjectType } from 'graphql';
-import {userObjectType} from "../../queryTypes/userQuery/userObjectType.js";
 import Context from "../../types/context.js";
 import { nonNullCreateUserObjectType } from '../../types/nonNullTypes.js';
+import {userObjectType} from "../../queryTypes/user-query/user-object-type.js";
 
 interface ICreateUser {
   dto: {

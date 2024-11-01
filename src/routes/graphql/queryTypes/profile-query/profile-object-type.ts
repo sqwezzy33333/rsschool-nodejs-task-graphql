@@ -1,9 +1,10 @@
 import { GraphQLObjectType, GraphQLInt, GraphQLBoolean } from "graphql";
 import { UUIDType } from "../../types/uuid.js";
-import { memberEnumType, memberObjectType } from "../memberQuery/memberObjectType.js";
-import IContext from "../../types/IContext.js";
+import Context from "../../types/context.js";
 import { Profile } from "@prisma/client";
-import {userObjectType} from "../userQuery/userObjectType.js";
+import {memberEnumType, memberObjectType} from "../member-query/member-object-type.js";
+import {GraphQLList} from "graphql/index.js";
+import {userObjectType} from "../user-query/user-object-type.js";
 
 export const profileObjectType = new GraphQLObjectType({
   name: 'Profile',
@@ -24,8 +25,8 @@ export const profileObjectType = new GraphQLObjectType({
     user: {
       type: userObjectType as GraphQLObjectType,
       description: 'The user',
-      resolve: async (source: Profile, _args, context: IContext) => {
-        return await context.prisma.user.findUnique({
+      resolve: async (source: Profile, _args, context: Context) => {
+        return context.prisma.user.findUnique({
           where: {
             id: source.userId,
           },
@@ -39,7 +40,7 @@ export const profileObjectType = new GraphQLObjectType({
     memberType: {
       type: memberObjectType as GraphQLObjectType,
       description: 'The memberType',
-      resolve: async (source: Profile, _args, context: IContext) => {
+      resolve: async (source: Profile, _args, context: Context) => {
         return await context.loaders.memberTypeLoader.load(source.memberTypeId);
       },
     },
@@ -49,3 +50,5 @@ export const profileObjectType = new GraphQLObjectType({
     },
   })
 });
+
+export const profileObjectTypeList = new GraphQLList(profileObjectType);

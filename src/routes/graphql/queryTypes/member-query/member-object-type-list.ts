@@ -1,5 +1,5 @@
 import { GraphQLList } from 'graphql';
-import {memberObjectType} from './memberObjectType.js';
+import {memberObjectType} from "./member-object-type.js";
 
 const memberObjectTypeList = new GraphQLList(memberObjectType);
 

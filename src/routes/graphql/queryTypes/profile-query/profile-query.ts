@@ -1,9 +1,8 @@
 import { Profile } from "@prisma/client";
-import IContext from "../../types/IContext.js";
+import Context from "../../types/context.js";
 import { GraphQLObjectType } from "graphql";
-import {profileObjectType} from "./profileObjectType.js";
-import {profileObjectTypeList} from "./profileObjectTypeList.js";
 import { nonNullUUIDType } from "../../types/nonNullTypes.js";
+import {profileObjectType, profileObjectTypeList} from "./profile-object-type.js";
 
 const profileQuery = {
   profile: {
@@ -13,8 +12,8 @@ const profileQuery = {
         type: nonNullUUIDType,
       },
     },
-    resolve: async (_source, args: Profile, context: IContext) => {
-      return await context.prisma.profile.findUnique({ 
+    resolve: async (_source, args: Profile, context: Context) => {
+      return context.prisma.profile.findUnique({
         where: {
           id: args.id,
         },
@@ -23,8 +22,8 @@ const profileQuery = {
   },
   profiles: {
     type: profileObjectTypeList,
-    resolve: async (_source, _args, context: IContext) => {
-      return await context.prisma.profile.findMany();
+    resolve: async (_source, _args, context: Context) => {
+      return context.prisma.profile.findMany();
     },
   },
 };

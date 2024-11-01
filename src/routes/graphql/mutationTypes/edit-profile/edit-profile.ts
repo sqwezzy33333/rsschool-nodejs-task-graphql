@@ -1,7 +1,7 @@
 import { GraphQLObjectType } from "graphql";
-import {profileObjectType} from "../../queryTypes/profileQuery/profileObjectType.js";
 import Context from "../../types/context.js";
 import { nonNullChangeProfileObjectType, nonNullUUIDType } from "../../types/nonNullTypes.js";
+import {profileObjectType} from "../../queryTypes/profile-query/profile-object-type.js";
 
 interface IChangeProfile {
   id: string;

@@ -1,12 +1,12 @@
 import { GraphQLBoolean, GraphQLFloat, GraphQLInt, GraphQLNonNull } from "graphql";
 import { UUIDType } from "./uuid.js";
-import { memberEnumType } from "../queryTypes/memberQuery/memberObjectType.js";
 import editPostObjectType from "../mutationTypes/edit-post/edit-post-object-type.js";
 import editProfileObjectType from "../mutationTypes/edit-profile/edit-profile-object-type.js";
 import editUserObjectType from "../mutationTypes/edit-user/edit-user-object-type.js";
 import createPostObjectType from "../mutationTypes/create-post/create-post-object-type.js";
 import createUserObjectType from "../mutationTypes/create-user/create-user-object-type.js";
 import createProfileObjectType from "../mutationTypes/create-profile/create-profile-object-type.js";
+import {memberEnumType} from "../queryTypes/member-query/member-object-type.js";
 
 
 export const nonNullCreatePostObjectType = new GraphQLNonNull(createPostObjectType);

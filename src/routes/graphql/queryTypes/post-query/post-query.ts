@@ -1,9 +1,9 @@
 import { Post } from "@prisma/client";
-import IContext from "../../types/IContext.js";
 import { GraphQLObjectType } from "graphql";
-import {postObjectType} from "./postObjectType.js";
-import {postObjectTypeList} from "./postObjectTypeList.js";
 import { nonNullUUIDType } from "../../types/nonNullTypes.js";
+import {postObjectType} from "./post-object-type.js";
+import {postObjectTypeList} from "./post-object-type-list.js";
+import Context from "../../types/context.js";
 
 export const postQuery = {
   post: {
@@ -13,8 +13,8 @@ export const postQuery = {
         type: nonNullUUIDType,
       },
     },
-    resolve: async (_source, args: Post, context: IContext) => {
-      return await context.prisma.post.findUnique({ 
+    resolve: async (_source, args: Post, context: Context) => {
+      return context.prisma.post.findUnique({
         where: {
           id: args.id,
         },
@@ -23,8 +23,8 @@ export const postQuery = {
   },
   posts: {
     type: postObjectTypeList,
-    resolve: async (_source, _args, context: IContext) => {
-      return await context.prisma.post.findMany();
+    resolve: async (_source, _args, context: Context) => {
+      return context.prisma.post.findMany();
     },
   },
 };

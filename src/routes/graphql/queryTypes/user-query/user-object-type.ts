@@ -2,8 +2,8 @@ import { GraphQLObjectType, GraphQLFloat, GraphQLList } from "graphql";
 import { UUIDType } from "../../types/uuid.js";
 import Context from "../../types/context.js";
 import { User } from "@prisma/client";
-import {profileObjectType} from "../profileQuery/profileObjectType.js";
-import {postObjectTypeList} from "../postQuery/postObjectTypeList.js";
+import {profileObjectType} from "../profile-query/profile-object-type.js";
+import {postObjectTypeList} from "../post-query/post-object-type-list.js";
 
 export interface IUserSubscribed extends User {
   userSubscribedTo?: {
@@ -70,3 +70,7 @@ export const userObjectType = new GraphQLObjectType({
     },
   })
 });
+
+export const userObjectTypeList = new GraphQLList(userObjectType);
+
+
