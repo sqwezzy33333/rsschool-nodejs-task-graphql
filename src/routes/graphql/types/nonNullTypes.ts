@@ -1,38 +1,27 @@
 import { GraphQLBoolean, GraphQLFloat, GraphQLInt, GraphQLNonNull } from "graphql";
 import { UUIDType } from "./uuid.js";
 import { memberEnumType } from "../queryTypes/memberQuery/memberObjectType.js";
-import createPostObjectType from "../mutationTypes/createPost/createPostObjectType.js";
-import createUserObjectType from "../mutationTypes/createUser/createUserObjectType.js";
-import createProfileObjectType from "../mutationTypes/createProfile/createProfileObjectType.js";
-import changePostObjectType from "../mutationTypes/changePost/changePostObjectType.js";
-import changeProfileObjectType from "../mutationTypes/changeProfile/changeProfileObjectType.js";
-import changeUserObjectType from "../mutationTypes/changeUser/changeUserObjectType.js";
+import editPostObjectType from "../mutationTypes/edit-post/edit-post-object-type.js";
+import editProfileObjectType from "../mutationTypes/edit-profile/edit-profile-object-type.js";
+import editUserObjectType from "../mutationTypes/edit-user/edit-user-object-type.js";
+import createPostObjectType from "../mutationTypes/create-post/create-post-object-type.js";
+import createUserObjectType from "../mutationTypes/create-user/create-user-object-type.js";
+import createProfileObjectType from "../mutationTypes/create-profile/create-profile-object-type.js";
 
-const nonNullUUIDType = new GraphQLNonNull(UUIDType);
-const nonNullMemberEnumType = new GraphQLNonNull(memberEnumType);
 
-const nonNullGraphQLFloat = new GraphQLNonNull(GraphQLFloat)
-const nonNullGraphQLBoolean = new GraphQLNonNull(GraphQLBoolean);
-const nonNullGraphQLInt = new GraphQLNonNull(GraphQLInt);
+export const nonNullCreatePostObjectType = new GraphQLNonNull(createPostObjectType);
+export const nonNullCreateUserObjectType = new GraphQLNonNull(createUserObjectType);
+export const nonNullCreateProfileObjectType = new GraphQLNonNull(createProfileObjectType);
 
-const nonNullCreatePostObjectType = new GraphQLNonNull(createPostObjectType);
-const nonNullCreateUserObjectType = new GraphQLNonNull(createUserObjectType);
-const nonNullCreateProfileObjectType = new GraphQLNonNull(createProfileObjectType);
+export const nonNullChangePostObjectType = new GraphQLNonNull(editPostObjectType);
+export const nonNullChangeProfileObjectType = new GraphQLNonNull(editProfileObjectType);
+export const nonNullChangeUserObjectType = new GraphQLNonNull(editUserObjectType);
 
-const nonNullChangePostObjectType = new GraphQLNonNull(changePostObjectType);
-const nonNullChangeProfileObjectType = new GraphQLNonNull(changeProfileObjectType);
-const nonNullChangeUserObjectType = new GraphQLNonNull(changeUserObjectType);
+export const nonNullUUIDType = new GraphQLNonNull(UUIDType);
+export const nonNullMemberEnumType = new GraphQLNonNull(memberEnumType);
 
-export { 
-  nonNullUUIDType,
-  nonNullMemberEnumType,
-  nonNullGraphQLFloat,
-  nonNullGraphQLBoolean,
-  nonNullGraphQLInt,
-  nonNullCreatePostObjectType,
-  nonNullCreateUserObjectType,
-  nonNullCreateProfileObjectType,
-  nonNullChangePostObjectType,
-  nonNullChangeProfileObjectType,
-  nonNullChangeUserObjectType,
-};
+export const nonNullGraphQLFloat = new GraphQLNonNull(GraphQLFloat)
+export const nonNullGraphQLBoolean = new GraphQLNonNull(GraphQLBoolean);
+export const nonNullGraphQLInt = new GraphQLNonNull(GraphQLInt);
+
+

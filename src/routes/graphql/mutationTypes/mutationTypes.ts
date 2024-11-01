@@ -1,30 +1,31 @@
 import { GraphQLObjectType } from "graphql";
-import createPost from "./createPost/createPost.js";
-import createUser from "./createUser/createUser.js";
-import createProfile from "./createProfile/createProfile.js";
-import deletePost from "./deletePost/deletePost.js";
-import deleteProfile from "./deleteProfile/deleteProfile.js";
-import deleteUser from "./deleteUser/deleteUser.js";
-import changePost from "./changePost/changePost.js";
-import changeProfile from "./changeProfile/changeProfile.js";
-import changeUser from "./changeUser/changeUser.js";
-import subscribeTo from "./subscribeTo/subscribeTo.js";
-import unsubscribeFrom from "./unsubscribeFrom/unsubscribeFrom.js";
+import deletePost from "./delete-post/delete-post.js";
+import createPost from "./create-post/create-post.js";
+import changePost from "./edit-post/edit-post.js";
+import createUser from "./create-user/create-user.js";
+import deleteUser from "./delete-user/delete-user.js";
+import editUser from "./edit-user/edit-user.js";
+import deleteProfile from "./delete-profile/delete-profile.js";
+import editProfile from "./edit-profile/edit-profile.js";
+import subscribeTo from "./subscribe-to/subscribeTo.js";
+import unsubscribeFrom from "./unsubscribe-from/unsubscribe-from.js";
+import createProfile from "./create-profile/create-profile.js";
 
-const mutationTypes = new GraphQLObjectType({
+
+export const mutationTypes = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
+    ...createProfile,
+    ...deleteProfile,
+    ...editProfile,
+    ...subscribeTo,
+    ...unsubscribeFrom,
     ...createPost,
     ...deletePost,
     ...changePost,
     ...createUser,
     ...deleteUser,
-    ...changeUser,
-    ...createProfile,
-    ...deleteProfile,
-    ...changeProfile,
-    ...subscribeTo,
-    ...unsubscribeFrom,
+    ...editUser,
   }),
 });
 

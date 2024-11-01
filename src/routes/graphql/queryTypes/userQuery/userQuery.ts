@@ -1,10 +1,10 @@
 import { User } from "@prisma/client";
-import IContext from "../../types/IContext.js";
 import { GraphQLObjectType, GraphQLResolveInfo } from "graphql";
 import {userObjectType} from "./userObjectType.js";
 import {userObjectTypeList} from "./userObjectTypeList.js";
 import { nonNullUUIDType } from "../../types/nonNullTypes.js";
 import { ResolveTree, parseResolveInfo, simplifyParsedResolveInfoFragmentWithType } from "graphql-parse-resolve-info";
+import Context from "../../types/context.js";
 
 export const userQuery = {
   user: {
@@ -14,8 +14,8 @@ export const userQuery = {
         type: nonNullUUIDType,
       },
     },
-    resolve: async (_source, args: User, context: IContext) => {
-      return await context.prisma.user.findUnique({ 
+    resolve: async (_source, args: User, context: Context) => {
+      return context.prisma.user.findUnique({
         where: {
           id: args.id,
         },
@@ -24,7 +24,7 @@ export const userQuery = {
   },
   users: {
     type: userObjectTypeList,
-    resolve: async (_source, _args, context: IContext, resolveInfo: GraphQLResolveInfo) => {
+    resolve: async (_source, _args, context: Context, resolveInfo: GraphQLResolveInfo) => {
       const parsedResolveInfoFragment = parseResolveInfo(resolveInfo);
       const { fields } = simplifyParsedResolveInfoFragmentWithType(
         parsedResolveInfoFragment as ResolveTree,
