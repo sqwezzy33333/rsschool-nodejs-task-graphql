@@ -1,39 +1,29 @@
-import { GraphQLObjectType } from 'graphql';
+import {GraphQLNonNull, GraphQLString} from 'graphql';
 import Context from "../../types/context.js";
-import { nonNullUUIDType } from "../../types/nonNullTypes.js";
-import {userObjectType} from "../../queryTypes/user-query/user-object-type.js";
+import {UUIDType} from "../../types/uuid.js";
 
 interface SubscribeTo {
-  userId: string;
-  authorId: string;
+    userId: string;
+    authorId: string;
 };
 
 const subscribeTo = {
-  subscribeTo: {
-    type: userObjectType as GraphQLObjectType,
-    args: {
-      userId: {
-        type: nonNullUUIDType,
-      },
-      authorId: {
-        type: nonNullUUIDType,
-      },
-    },
-    resolve: async (_source, args: SubscribeTo, context: Context) => {
-      return context.prisma.user.update({
-        where: {
-          id: args.userId,
+    subscribeTo: {
+        type: new GraphQLNonNull(GraphQLString),
+        args: {
+            userId: {type: new GraphQLNonNull(UUIDType)},
+            authorId: {type: new GraphQLNonNull(UUIDType)},
         },
-        data: {
-          userSubscribedTo: {
-            create: {
-              authorId: args.authorId,
-            },
-          },
+        resolve: async (_, args: SubscribeTo, context: Context) => {
+            await context.prisma.subscribersOnAuthors.create({
+                data: {
+                    subscriberId: args.userId,
+                    authorId: args.authorId,
+                },
+            });
+            return 'Subscribed';
         },
-      });
-    },
-  },
-};
+    }
+}
 
 export default subscribeTo;

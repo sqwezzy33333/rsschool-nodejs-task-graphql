@@ -1,6 +1,6 @@
 import Context from "../../types/context.js";
-import { nonNullUUIDType } from "../../types/nonNullTypes.js";
 import { UUIDType } from '../../types/uuid.js';
+import {GraphQLNonNull, GraphQLString} from "graphql";
 
 interface UnsubscribeFrom {
   authorId: string;
@@ -9,25 +9,21 @@ interface UnsubscribeFrom {
 
 export const unsubscribeFrom = {
   unsubscribeFrom: {
-    type: UUIDType,
+    type: new GraphQLNonNull(GraphQLString),
     args: {
-      authorId: {
-        type: nonNullUUIDType,
-      },
-      userId: {
-        type: nonNullUUIDType,
-      }
+      userId: { type: new GraphQLNonNull(UUIDType) },
+      authorId: { type: new GraphQLNonNull(UUIDType) },
     },
-    resolve: async (_source, args: UnsubscribeFrom, context: Context) => {
+    resolve: async (_, args: UnsubscribeFrom, context: Context) => {
       await context.prisma.subscribersOnAuthors.delete({
         where: {
           subscriberId_authorId: {
-            authorId: args.authorId,
             subscriberId: args.userId,
+            authorId: args.authorId,
           },
         },
       });
-      return args.userId;
+      return 'Unsubscribed';
     },
   },
 };

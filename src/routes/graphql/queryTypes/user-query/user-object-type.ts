@@ -5,7 +5,7 @@ import { User } from "@prisma/client";
 import {profileObjectType} from "../profile-query/profile-object-type.js";
 import {postObjectTypeList} from "../post-query/post-object-type-list.js";
 
-export interface IUserSubscribed extends User {
+export interface UserSubscribed extends User {
   userSubscribedTo?: {
     subscriberId: string;
     authorId: string;
@@ -49,7 +49,7 @@ export const userObjectType = new GraphQLObjectType({
     userSubscribedTo: {
       type: new GraphQLList(userObjectType),
       description: 'The userSubscribedTo',
-      resolve: async (source: IUserSubscribed, _args, context: Context) => {
+      resolve: async (source: UserSubscribed, _args, context: Context) => {
         if (source.userSubscribedTo) {
           const authorsId = source.userSubscribedTo.map((user) => user.authorId);
           return await context.loaders.userLoader.loadMany(authorsId);
@@ -60,7 +60,7 @@ export const userObjectType = new GraphQLObjectType({
     subscribedToUser: {
       type: new GraphQLList(userObjectType),
       description: 'The subscribedToUser',
-      resolve: async (source: IUserSubscribed, _args, context: Context) => {
+      resolve: async (source: UserSubscribed, _args, context: Context) => {
         if (source.subscribedToUser) {
           const subscribersId = source.subscribedToUser.map((user) => user.subscriberId);
           return await context.loaders.userLoader.loadMany(subscribersId);
