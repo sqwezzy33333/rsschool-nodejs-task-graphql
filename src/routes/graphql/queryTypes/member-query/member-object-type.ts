@@ -9,13 +9,13 @@ export const memberEnumType = new GraphQLEnumType({
   name: 'MemberTypeId',
   description: 'A MemberTypeId',
   values: {
-    basic: {
+    BASIC: {
       value: MemberTypeId.BASIC,
-      description: 'basic',
+      description: 'BASIC',
     },
-    business: {
+    BUSINESS: {
       value: MemberTypeId.BUSINESS,
-      description: 'business',
+      description: 'BUSINESS',
     }
   }
 })
